@@ -1,20 +1,66 @@
 var gulp = require('gulp');
-var gm = require('gulp-gm');
+var ggm = require('gulp-gm');
+var gm = require('gm'),
+    rename = require("gulp-rename");
 
 
 gulp.task('default', function () {
  
 });
+gulp.task('images', function () {
+  gulp.src('./source-images/*.jpg')
+
+  	
+    .pipe(ggm(function (gmfile) {
 
 
-gulp.task('newsletter', function () {
-  gulp.src('./source-images/**/*.jpg')
+      	gmfile
+      			.setFormat("png")
+      			.resize(300, 200)
+      			.borderColor("RGB(255,255,255)")
+      			.border(3,3)
+      			.rotate("transparent",3)
+      			;
+      			
 
-    .pipe(gm(function (gmfile) {
 
-      return gmfile.resize(100, 100);
-
+      	return gmfile;
+      			
+      			 
     }))
 
-    .pipe(gulp.dest('/output/'));
+    .pipe(rename(function (path) {
+            
+            path.basename += "-right-";        
+        }))
+
+    .pipe(gulp.dest('output'));
+
+    gulp.src('./source-images/*.jpg')
+
+    
+    .pipe(ggm(function (gmfile) {
+
+
+        gmfile
+            .setFormat("png")
+            .resize(300, 200)
+            .borderColor("RGB(255,255,255)")
+            .border(3,3)
+            .rotate("transparent",-3)
+            ;
+            
+
+
+        return gmfile;
+            
+             
+    }))
+
+    .pipe(rename(function (path) {
+            
+            path.basename += "-left-";        
+        }))
+
+    .pipe(gulp.dest('output'));
 });

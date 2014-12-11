@@ -18,6 +18,7 @@
         "gulp-uglifycss" : "latest",
         "grunt" : "latest",
         "grunt-responsive-images" : "latest",
-        "gulp-gm" : "latest"
+        "gulp-gm" : "latest",
+        "gm": "latest"
   	}
  }
